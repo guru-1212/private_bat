@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter Translator</title>
+    <!-- Added Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        textarea {
+            width: 300px;
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        .btn-group {
+            margin-top: 10px;
+        }
+
+        .result-textarea {
+            margin-top: 10px;
+        }
+        .form-control:focus{
+            border-color: green;
+            box-shadow: 0 0 2px 2px green;;
+        }
+        @media (max-width: 767px) {
+            .heading_text {
+                font-size: 20px;
+                font-weight: bold;
+                font-family: monospace;
+            }
+        }
+    </style>
+    <script>
+        function ChangeText(event) {
+            var c = event.target;
+            var e = c.id;
+            if (e == "readable") {
+                var translationMap = {
+                    'a': 'x',
+                    'b': 'y',
+                    'c': 'z',
+                    'd': 'w',
+                    'e': 'k',
+                    'f': 'm',
+                    'g': 'q',
+                    'h': 'r',
+                    'i': 'u',
+                    'j': 'p',
+                    'k': 'n',
+                    'l': 'o',
+                    'm': 's',
+                    'n': 't',
+                    'o': 'a',
+                    'p': 'b',
+                    'q': 'c',
+                    'r': 'd',
+                    's': 'e',
+                    't': 'f',
+                    'u': 'g',
+                    'v': 'h',
+                    'w': 'i',
+                    'x': 'j',
+                    'y': 'l',
+                    'z': 'v'
+                };
+            }
+            if (e == "notReadable") {
+                var translationMap = {
+                    'x': 'a',
+                    'y': 'b',
+                    'z': 'c',
+                    'w': 'd',
+                    'k': 'e',
+                    'm': 'f',
+                    'q': 'g',
+                    'r': 'h',
+                    'u': 'i',
+                    'p': 'j',
+                    'n': 'k',
+                    'o': 'l',
+                    's': 'm',
+                    't': 'n',
+                    'a': 'o',
+                    'b': 'p',
+                    'c': 'q',
+                    'd': 'r',
+                    'e': 's',
+                    'f': 't',
+                    'g': 'u',
+                    'h': 'v',
+                    'i': 'w',
+                    'j': 'x',
+                    'l': 'y',
+                    'v': 'z'
+                }
+            }
+
+            const originalText = document.getElementById('originalText').value.toLowerCase();
+            let translatedText = '';
+
+            for (let i = 0; i < originalText.length; i++) {
+                const char = originalText[i];
+                translatedText += translationMap[char] || char;
+            }
+
+            document.getElementById('translatedText').value = translatedText;
+        }
+
+        function copyToClipboard() {
+            const translatedText = document.getElementById('translatedText');
+            translatedText.select();
+            document.execCommand('copy');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4 heading_text">Sentence Translator</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <textarea class="form-control" onchange="ChangeText()" id="originalText" placeholder="Enter your sentence"></textarea>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="readable" onclick="ChangeText(event)">Readable to Unreadable</button>
+                    <button class="btn btn-secondary" id="notReadable" onclick="ChangeText(event)">Unreadable to Readable</button>
+                </div>
+                <textarea class="form-control result-textarea" id="translatedText" placeholder="Translated text will appear here"></textarea>
+                <div>
+                    <button class="btn btn-success mt-2" onclick="copyToClipboard()">Copy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
